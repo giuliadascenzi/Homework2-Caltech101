@@ -60,7 +60,7 @@ class Caltech(VisionDataset):
         img_name = os.path.join(self.root,
                                 self.data.iloc[index, 0])
 
-        image =Image.open(img_name) 
+        image =pil_loader(img_name)
         label = self.labels(self.data.iloc[index, 0].split("/")[0])
 
         # Applies preprocessing when accessing the image
