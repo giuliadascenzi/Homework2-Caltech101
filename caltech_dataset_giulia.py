@@ -22,7 +22,7 @@ class Caltech(VisionDataset):
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
         
-        text_file = "Caltech101/" + split + ".txt" #path of the correct txt file
+        txt_file = "Caltech101/" + split + ".txt" #path of the correct txt file
         data = pd.read_csv(txt_file, header=None)
         self.data = data[(data[0].str.contains("BACKGROUND"))==False] #filtered the background images
         
