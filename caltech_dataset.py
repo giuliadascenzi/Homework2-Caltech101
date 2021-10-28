@@ -5,6 +5,7 @@ from PIL import Image
 import os
 import os.path
 import sys
+import pandas as pd
 
 
 def pil_loader(path):
@@ -20,6 +21,19 @@ class Caltech(VisionDataset):
 
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
+        
+        text_file = "Caltech101/" + split + ".txt" #path of the correct txt file
+        data = pd.read_csv(txt_file, header=None)
+        self.data = data[(data[0].str.contains("BACKGROUND"))==False] #filtered the background images
+        
+        
+        
+        self.labels = {} #save a dictionary of labels
+        for line in self.data.values:
+          folder = line[0].split("/")[0]
+          if folder not in self.labels:
+            self.labels[folder]= len(self.labels)
+        
 
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
@@ -40,9 +54,14 @@ class Caltech(VisionDataset):
             tuple: (sample, target) where target is class_index of the target class.
         '''
 
-        image, label = ... # Provide a way to access image and label via index
+        # Provide a way to access image and label via index
                            # Image should be a PIL Image
                            # label can be int
+        img_name = os.path.join(self.root,
+                                self.data.iloc[index, 0])
+
+        image =Image.open(img_name) 
+        label = self.labels(self.data.iloc[index, 0].split("/")[0])
 
         # Applies preprocessing when accessing the image
         if self.transform is not None:
@@ -55,5 +74,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = ... # Provide a way to get the length (number of elements) of the dataset
+        length = len(self.data) # Provide a way to get the length (number of elements) of the dataset
         return length
