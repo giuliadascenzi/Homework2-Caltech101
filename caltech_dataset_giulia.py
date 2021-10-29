@@ -36,7 +36,7 @@ class Caltech(VisionDataset):
           if folder not in self.labels:
             self.labels[folder]= len(self.labels)
         
-        self.data[1]= self.targets
+        
 
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
@@ -64,7 +64,7 @@ class Caltech(VisionDataset):
                                 self.data.iloc[index, 0])
 
         image =pil_loader(img_name)
-        label = self.labels(self.data.iloc[index, 0].split("/")[0])
+        label = self.labels.get(self.targets[index])
 
         # Applies preprocessing when accessing the image
         if self.transform is not None:
