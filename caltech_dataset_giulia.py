@@ -30,7 +30,7 @@ class Caltech(VisionDataset):
         
         self.labels = {} #save a dictionary of labels
         self.data.loc[:,1] = ""
-        for index, line in data.iterrows():
+        for index, line in self.data.iterrows():
           folder = line[0].split("/")[0]
           self.data.loc[index,1] = folder
           if folder not in self.labels:
