@@ -29,16 +29,12 @@ class Caltech(VisionDataset):
         
         
         self.labels = {} #save a dictionary of labels
-        targets = []
+        data.loc[:,1] = ""
         for index, line in data.iterrows():
           folder = line[0].split("/")[0]
-          targets.append(folder)
+          data.loc[index,1] = folder
           if folder not in self.labels:
-            self.labels[folder]= len(self.labels)
-        
-        
-        self.data.loc[:,1] = targets
-        
+            self.labels[folder]= len(self.labels)        
 
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
