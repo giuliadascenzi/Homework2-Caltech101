@@ -29,13 +29,15 @@ class Caltech(VisionDataset):
         
         
         self.labels = {} #save a dictionary of labels
-        self.targets = []
+        targets = []
         for line in self.data.values:
           folder = line[0].split("/")[0]
-          self.targets.append(folder)
+          targets.append(folder)
           if folder not in self.labels:
             self.labels[folder]= len(self.labels)
         
+        t = pd.Series(targets)
+        self.data[:,1] = t
         
 
         '''
