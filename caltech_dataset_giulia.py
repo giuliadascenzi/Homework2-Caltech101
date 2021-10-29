@@ -24,7 +24,7 @@ class Caltech(VisionDataset):
         
         txt_file = "Caltech101/" + split + ".txt" #path of the correct txt file
         data = pd.read_csv(txt_file, header=None)
-        self.data = data[(data[0].str.contains("BACKGROUND"))==False] #filtered the background images
+        self.data = data.drop(data[data[0].str.contains("BACKGROUND")].index)   #filtered the background images
         
         
         
