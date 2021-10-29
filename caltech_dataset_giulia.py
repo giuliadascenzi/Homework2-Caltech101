@@ -37,7 +37,7 @@ class Caltech(VisionDataset):
             self.labels[folder]= len(self.labels)
         
         t = pd.Series(targets)
-        self.data[:,1] = t
+        self.data.loc[:,1] = t
         
 
         '''
@@ -66,7 +66,7 @@ class Caltech(VisionDataset):
                                 self.data.iloc[index, 0])
 
         image =pil_loader(img_name)
-        label = self.labels.get(self.targets[index])
+        label = self.labels.get(self.data.iloc[index, 1])
 
         # Applies preprocessing when accessing the image
         if self.transform is not None:
