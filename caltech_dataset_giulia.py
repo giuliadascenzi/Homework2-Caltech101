@@ -59,10 +59,10 @@ class Caltech(VisionDataset):
                            # Image should be a PIL Image
                            # label can be int
         img_name = os.path.join(self.root,
-                                self.data.loc[index, 0])
+                                self.data.iloc[index, 0])
 
         image =pil_loader(img_name)
-        label = self.labels.get(self.data.loc[index, 1])
+        label = self.labels.get(self.data.iloc[index, 1])
 
         # Applies preprocessing when accessing the image
         if self.transform is not None:
